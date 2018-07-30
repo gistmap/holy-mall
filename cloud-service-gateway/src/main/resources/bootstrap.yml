@@ -1,0 +1,42 @@
+server:
+  port: 8005
+spring:
+  application:
+    name: gateway
+  boot:
+    admin:
+      client:
+        url: http://localhost:8003
+  cloud:
+    config:
+      profile: dev
+      label: master
+      # uri: http://localhost:5555/
+      fail-fast: true
+      name: gateway-config
+      discovery:
+        enabled: true
+        # config-server's application name
+        service-id: config-server
+  rabbitmq:
+      host: 127.0.0.1
+      port: 5672
+      username: test
+      password: 123456
+zuul:
+  #ignored-services: consul
+  retryable: true
+
+endpoints:
+  default:
+    web:
+      enabled: true
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://localhost:8001/eureka/

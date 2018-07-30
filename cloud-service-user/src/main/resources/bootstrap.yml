@@ -1,0 +1,18 @@
+spring:
+  application:
+    name: user
+#  cloud:
+#    config:
+#      profile: dev
+#      label: master
+#      # uri: http://localhost:5555/
+#      fail-fast: true
+#      name: gistmap-config
+#      discovery:
+#        enabled: true
+#        # config-server's application name
+#        service-id: service-config
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://localhost:8001/eureka/

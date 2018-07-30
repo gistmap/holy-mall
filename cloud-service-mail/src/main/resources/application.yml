@@ -1,0 +1,31 @@
+---
+server:
+  port: 9002
+spring:
+  activemq:
+    broker-url: tcp://127.0.0.1:61616
+    in-memory: true
+    pool:
+      enabled: false
+  freemarker:
+    charset: UTF-8
+    cache: true
+    allow-request-override: false
+    expose-request-attributes: false
+    expose-session-attributes: false
+    content-type: text/html
+    expose-spring-macro-helpers: false
+    check-template-location: true
+  mail:
+    password: nxvtztmygxpcbjff
+    host: smtp.qq.com
+    properties:
+      mail:
+        smtp:
+          starttls:
+            enable: true
+            required: true
+          auth: true
+    username: 452866701@qq.com
+
+

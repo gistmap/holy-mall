@@ -1,0 +1,41 @@
+spring:
+  application:
+    name: config-server
+  cloud:
+    config:
+      server:
+        git:
+          uri: https://gitee.com/gistmap/ddbeat.git
+          search-paths: config-repo
+          username: 452866701@qq.com
+          password: Java123`
+    bus:
+      trace:
+        enabled: true # 跟踪总线事件
+  boot:
+    admin:
+      client:
+        url: http://localhost:8003
+
+  rabbitmq:
+      host: 127.0.0.1
+      port: 5672
+      username: test
+      password: 123456
+
+endpoints:
+  default:
+    web:
+      enabled: true
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
+server:
+  port: 5555
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://localhost:8001/eureka/
+

@@ -1,0 +1,49 @@
+server:
+  port: 9001
+spring:
+  boot:
+    admin:
+      client:
+        url: http://localhost:8003
+  datasource:
+      hikari:
+        minimum-idle: 5
+        maximum-pool-size: 20
+        idle-timeout: 30000
+        connection-timeout: 30000
+        pool-name: SpringBootJPAHikariCP
+      username: root
+      password:
+      url: jdbc:mysql://127.0.0.1/sbdemo?characterEncoding=utf-8&useSSL=false
+  jpa:
+    show-sql: true
+    database: mysql
+    hibernate:
+      ddl-auto: update
+    database-platform: org.hibernate.dialect.MySQL5InnoDBDialect
+  data:
+    web:
+      pageable:
+        default-page-size: 10
+        page-parameter: pageNumber
+        size-parameter: pageSize
+  redis:
+    host: localhost
+    timeout: 10000
+    database: 0
+    lettuce:
+      pool:
+        max-idle: 8
+        max-active: 8
+        max-wait: -1
+        min-idle: 0
+
+  zipkin:
+    base-url: http://localhost:9411
+
+# 刷新时，关闭安全验证
+endpoints:
+  default:
+    web:
+      enabled: true
+
