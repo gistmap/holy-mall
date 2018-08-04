@@ -45,11 +45,7 @@ public class SimpleFilter extends ZuulFilter {
 
         log.info(String.format("%s request to %s", request.getMethod(), request.getRequestURL().toString()));
         String accessToken = request.getHeader(ResponseUtil.ACCESS_TOKEN);
-        if (isWhiteList(accessToken)) {
-            ResponseUtil.deny(ctx, ResultEnum.SIGNATURE_ERROR);
-        } else {
-            ResponseUtil.routing(ctx);
-        }
+        ResponseUtil.routing(ctx);
         return null;
     }
 

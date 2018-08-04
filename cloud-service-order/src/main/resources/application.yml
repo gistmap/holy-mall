@@ -1,10 +1,6 @@
 server:
-  port: 9001
+  port: 9004
 spring:
-  boot:
-    admin:
-      client:
-        url: http://localhost:8003
   datasource:
       hikari:
         minimum-idle: 5
@@ -21,6 +17,7 @@ spring:
     hibernate:
       ddl-auto: update
     database-platform: org.hibernate.dialect.MySQL5InnoDBDialect
+
   data:
     web:
       pageable:
@@ -37,15 +34,10 @@ spring:
         max-active: 8
         max-wait: -1
         min-idle: 0
-  sleuth:
-    sampler:
-      probability: 1
-  zipkin:
-      base-url: http://localhost:9411
+
 # 刷新时，关闭安全验证
 endpoints:
   default:
     web:
       enabled: true
-
 

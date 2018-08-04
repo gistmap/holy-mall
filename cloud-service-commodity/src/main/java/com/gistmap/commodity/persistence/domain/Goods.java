@@ -66,6 +66,7 @@ public class Goods {
     @OneToMany(
             mappedBy = "goods",
             orphanRemoval = true,
+//            fetch = FetchType.LAZY,
             cascade = CascadeType.ALL
     )
     private List<Sku> skus = new ArrayList<>();

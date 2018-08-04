@@ -1,5 +1,7 @@
 package com.gistmap.commodity.service;
 
+import com.gistmap.commodity.persistence.domain.Attribute;
+import com.gistmap.commodity.persistence.domain.Category;
 import com.gistmap.common.exception.BaseException;
 import com.gistmap.commodity.persistence.domain.Merchant;
 import com.gistmap.commodity.persistence.enumeration.ReviewStatus;
@@ -10,6 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
 import java.util.Optional;
 
 /**
@@ -38,5 +41,11 @@ public class MerchantService {
         Optional<Merchant> byId = merchantRepository.findById(id);
         return byId.orElseThrow( () ->new BaseException("该商户不存在!"));
 
+    }
+
+    public List<Attribute> attrs(String id) {
+        Merchant merchant = get(id);
+        Category category = merchant.getCategory();
+        return category.getAttributes();
     }
 }

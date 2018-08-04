@@ -1,10 +1,12 @@
 package com.gistmap.ddbeat.user.web;
 
 import com.gistmap.common.exception.BaseException;
+import com.gistmap.common.json.JsonListResponseEntity;
 import com.gistmap.common.json.JsonResponseEntity;
 import com.gistmap.ddbeat.user.service.UserService;
 import com.gistmap.ddbeat.user.service.dto.Session;
 import com.gistmap.ddbeat.user.service.dto.UserDTO;
+import com.gistmap.ddbeat.user.service.vo.AddressVO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -18,7 +20,6 @@ import javax.validation.Valid;
  * @date 2018/7/9
  */
 @RestController
-@RequestMapping("/user")
 public class UserController {
 
     @Autowired
@@ -45,16 +46,28 @@ public class UserController {
     }
 
 
-    @GetMapping("/list")
+    @GetMapping("/user/list")
     public Page<UserDTO> list(String mobile, Pageable pageable){
         return userService.list(mobile, pageable);
     }
 
-    @GetMapping
-    public JsonResponseEntity<UserDTO> find(String id) {
+    @GetMapping("/user/{id}")
+    public JsonResponseEntity<UserDTO> find(@PathVariable("id") String id) {
         JsonResponseEntity<UserDTO> response = new JsonResponseEntity<>();
         response.data = userService.find(id);
         return response;
+    }
+
+    @GetMapping("/user/address")
+    public JsonListResponseEntity<AddressVO> addresses(String id){
+        JsonListResponseEntity<AddressVO> response = new JsonListResponseEntity<>();
+        response.setContent(userService.addressList(id));
+        return response;
+    }
+
+    @GetMapping("/test")
+    public String test(){
+        return "test";
     }
 
 }

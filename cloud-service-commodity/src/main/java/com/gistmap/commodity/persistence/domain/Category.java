@@ -6,7 +6,9 @@ import lombok.Setter;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 /**
@@ -32,7 +34,7 @@ public class Category {
             cascade={CascadeType.ALL}
     )
     @JsonIgnore
-    private Set<Merchant> merchants = new HashSet<>();
+    private List<Merchant> merchants = new ArrayList<>();
 
     @OneToMany(
             mappedBy="category",
@@ -40,5 +42,5 @@ public class Category {
             cascade={CascadeType.ALL}
     )
     @JsonIgnore
-    private Set<Attribute> attributes = new HashSet<>();
+    private List<Attribute> attributes = new ArrayList<>();
 }

@@ -1,4 +1,4 @@
-package com.gistmap.ddbeat.user.configuration;
+package com.gistmap.order.configuration;
 
 import com.gistmap.common.exception.handler.DefaultExceptionHandler;
 import com.gistmap.common.exception.handler.PropertyNamingStrategyArgumentResolver;
@@ -14,11 +14,9 @@ import org.springframework.web.servlet.HandlerExceptionResolver;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurationSupport;
 
-import javax.servlet.DispatcherType;
 import java.util.List;
 
 /**
- * Web自定义配置
  * @author zhangran
  */
 @Configuration
@@ -42,10 +40,10 @@ public class WebConfiguration extends WebMvcConfigurationSupport {
     }
 
     @Bean
-    public FilterRegistrationBean<RequestWrapperFilter> requestWrapperFilter() {
+    public FilterRegistrationBean requestWrapperFilter() {
         FilterRegistrationBean<RequestWrapperFilter> registration = new FilterRegistrationBean<>();
         registration.setFilter(new RequestWrapperFilter());
-        registration.setDispatcherTypes(DispatcherType.REQUEST);
+        registration.setDispatcherTypes(javax.servlet.DispatcherType.REQUEST);
         return registration;
     }
 }

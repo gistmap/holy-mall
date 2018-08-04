@@ -8,20 +8,19 @@ import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import javax.persistence.*;
-import java.util.ArrayList;
 import java.util.Date;
-import java.util.List;
 
 /**
  * @author zhangran
- * @date 2018/7/9
+ * @date 2018/8/2
  */
 @Data
 @Entity
-@Table(name = "tb_user")
+@Table(name = "tb_address")
 @Where(clause = "del_flag=0")
 @EntityListeners(AuditingEntityListener.class)
-public class User {
+public class Address {
+
     @Id
     @GeneratedValue(generator = "idGenerator")
     @GenericGenerator(name = "idGenerator", strategy = "uuid")
@@ -29,9 +28,13 @@ public class User {
 
     private String name;
 
+    private String info;
 
-    private String password;
-    private String email;
+    private String mobile;
+    /**
+     * 是否默认地址
+     */
+    private boolean acquiescence;
 
     private boolean delFlag;
 
@@ -44,11 +47,7 @@ public class User {
     /**
      * 级联关系
      */
-    @OneToMany(
-            mappedBy = "user",
-            orphanRemoval = true,
-            cascade = CascadeType.ALL
-    )
-    private List<Address> addresses = new ArrayList<>();
-
+    @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @JoinColumn(name = "user_id")
+    private User user;
 }

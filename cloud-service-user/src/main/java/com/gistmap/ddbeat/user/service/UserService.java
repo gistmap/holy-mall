@@ -5,11 +5,13 @@ import com.gistmap.common.exception.BaseException;
 import com.gistmap.common.json.JsonConverter;
 import com.gistmap.common.util.Const;
 import com.gistmap.common.util.MD5Util;
+import com.gistmap.ddbeat.user.persistence.domain.Address;
 import com.gistmap.ddbeat.user.persistence.domain.User;
 import com.gistmap.ddbeat.user.persistence.repository.UserRepository;
 import com.gistmap.ddbeat.user.service.dto.Session;
 import com.gistmap.ddbeat.user.service.dto.UserDTO;
 import com.gistmap.ddbeat.user.service.remote.MailService;
+import com.gistmap.ddbeat.user.service.vo.AddressVO;
 import com.github.wenhao.jpa.Sorts;
 import com.github.wenhao.jpa.Specifications;
 
@@ -24,7 +26,10 @@ import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
 import java.util.Optional;
+
+import static java.util.stream.Collectors.toList;
 
 /**
  * @author zhangran
@@ -88,7 +93,7 @@ public class UserService {
     }
 
 
-    private User get(String uid){
+    public User get(String uid){
         Optional<User> user = userRepository.findById(uid);
          return user.orElseThrow(() -> new BaseException("不存在的用户"));
     }
@@ -105,10 +110,15 @@ public class UserService {
                 .build();
         return userRepository.findAll(specification,
                 PageRequest.of(pageable.getPageNumber(), pageable.getPageSize(), sort));
-
     }
 
     public UserDTO find(String id) {
         return new UserDTO(get(id));
+    }
+
+    @Transactional
+    public List<AddressVO> addressList(String id) {
+        User user = get(id);
+        return user.getAddresses().stream().map(AddressVO::new).collect(toList());
     }
 }
